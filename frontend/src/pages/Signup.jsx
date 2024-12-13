@@ -1,8 +1,10 @@
 import useField from "../hooks/useField";
 import useSignup from "../hooks/useSignup";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/authContext";
 
-const Signup = ({ setIsAuthenticated }) => {
+const Signup = () => {
+  const { authenticate } = useAuth();
   const navigate = useNavigate();
   const name = useField("text");  
   const email = useField("email");
@@ -26,7 +28,7 @@ const Signup = ({ setIsAuthenticated }) => {
       });
       if (!error) {
         console.log("success");
-        setIsAuthenticated(true);
+        authenticate();
         navigate("/");
       } else {
         console.log("error");

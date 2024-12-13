@@ -7,7 +7,7 @@ const EditBookPage = () => {
   const [error, setError] = useState(null); // Error state
   const { id } = useParams();
   // console.log(id);
-  
+
 
   // Declare state variables for form fields
   const [title, setTitle] = useState("");
@@ -18,7 +18,7 @@ const EditBookPage = () => {
   const [isAvailable, setIsAvailable] = useState(false);
   const [borrower, setBorrower] = useState("");
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { user } = useAuth();
   const token = user ? user.token : null;
 
   const navigate = useNavigate();

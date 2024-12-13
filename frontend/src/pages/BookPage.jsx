@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useAuth } from "../context/authContext";
 
 const BookPage = ({ isAuthenticated }) => {
   const navigate = useNavigate();
@@ -8,7 +9,7 @@ const BookPage = ({ isAuthenticated }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { user } = useAuth();
   const token = user ? user.token : null;
 
   const deleteBook = async (id) => {

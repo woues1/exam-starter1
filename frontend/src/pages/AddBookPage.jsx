@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useAuth } from "../context/authContext";
 const AddBookPage = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -10,7 +10,7 @@ const AddBookPage = () => {
   const [isAvailable, setIsAvailable] = useState(false);
   const [borrower, setBorrower] = useState("");
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { user } = useAuth();
   const token = user ? user.token : null;
 
   const navigate = useNavigate();

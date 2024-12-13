@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
-
-const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
+import { useAuth } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
+const Navbar = () => {
+  const { isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
   const handleClick = (e) => {
-    setIsAuthenticated(false);
-    localStorage.removeItem("user");
+    logout();
+    navigate("/login");
   };
-
+  
   return (
     <nav className="navbar">
       <Link to="/">
