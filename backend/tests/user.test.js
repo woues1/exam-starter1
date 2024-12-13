@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const supertest = require("supertest");
-const app = require("./app");
+const app = require("./app"); 
 const api = supertest(app);
 const User = require("../models/userModel");
 
@@ -16,8 +16,9 @@ describe("User Routes", () => {
         name: "John Doe",
         email: "john@example.com",
         password: "Pass!#22w0d@",
-        phone_number: "09-4567890",
-        gender: "Male",
+        address: "123 Main St",
+        phoneNumber: "09-4567890",
+        profilePicture: "https://example.com/profile.jpg",
       };
 
       // Act
@@ -33,7 +34,8 @@ describe("User Routes", () => {
       const userData = {
         email: "test@example.com",
         password: "invalidpassword",
-        phone_number: "0412345670",
+        address: "123 Main St",
+        phoneNumber: "0412345670",
       };
 
       // Act
