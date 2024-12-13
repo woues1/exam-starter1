@@ -11,13 +11,21 @@ const Login = ({ setIsAuthenticated }) => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    await login({ email: email.value, password: password.value });
-    if (!error) {
-      console.log("success");
-      setIsAuthenticated(true);
-      navigate("/");
-    }
-  };
+    try {
+      await login({ email: email.value, password: password.value });
+      
+      if (!error) {
+        console.log("success");
+        setIsAuthenticated(true);
+        navigate("/");
+      }else{
+        console.log("error");
+      }
+
+    } catch (error) {
+      console.log(error);
+    };
+  }
 
 
   return (
@@ -29,6 +37,7 @@ const Login = ({ setIsAuthenticated }) => {
         <label>Password:</label>
         <input {...password} />
         <button>Sign up</button>
+        {error && <div>{error}</div>}
       </form>
     </div>
   );

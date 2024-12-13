@@ -12,11 +12,11 @@ export default function useLogin(url) {
           body: JSON.stringify(object),
         });
         const user = await response.json();
-    
-        if (!response.ok) {
+        
+        if (user.error) {
           setError(user.error);
           setIsLoading(false);
-          return error;
+          throw new Error(user.error);
         }
     
         // localStorage.setItem("token", user.token);

@@ -52,9 +52,11 @@ const getBookById = async (req, res) => {
 const deleteBook = async (req, res) => {
   const { id } = req.params;
   try {
-    // const user_id = req.user._id;
-    // const book = await Book.findByIdAndDelete({ _id: id, user_id: user_id });
-    const book = await Book.findByIdAndDelete({ _id: id,});
+    const user_id = req.user._id;
+    // checks if the book exists and if the user is the owner of the book by checking the user_id returned from the token
+    // user_id is the reference to the user who created the book
+    const book = await Book.findByIdAndDelete({ _id: id, user_id: user_id });
+    //const book = await Book.findByIdAndDelete({ _id: id,});
     if (!book) {
       return res.status(404).json({ message: 'Book not found' });
     }
@@ -69,10 +71,10 @@ const deleteBook = async (req, res) => {
 const updateBook = async (req, res) => {
   const { id } = req.params;
   try {
-    // const user_id = req.user._id;
+    // added user_id to the query to check if the user is the owner of the book
+    const user_id = req.user._id;
     const book = await Book.findOneAndUpdate(
-      // { _id: id, user_id: user_id },
-      { _id: id,  },
+      { _id: id, user_id: user_id },
       { ...req.body },
       { new: true }
     );
