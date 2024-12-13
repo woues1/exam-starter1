@@ -11,6 +11,7 @@ const bookSchema = new mongoose.Schema({
     dueDate: { type: Date },
     borrower: { type: String }
   },
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 }, { timestamps: true });
 
 

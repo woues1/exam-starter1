@@ -7,6 +7,9 @@ const Signup = ({ setIsAuthenticated }) => {
   const name = useField("text");  
   const email = useField("email");
   const password = useField("password");
+  const address = useField("text");
+  const phoneNumber = useField("text");
+  const profilePicture = useField("text");
 
   const { signup, error } = useSignup("/api/users/signup");
 
@@ -16,6 +19,9 @@ const Signup = ({ setIsAuthenticated }) => {
       email: email.value,
       password: password.value,
       name: name.value,
+      address: address.value,
+      phoneNumber: phoneNumber.value,
+      profilePicture: profilePicture.value,
     });
     if (!error) {
       console.log("success");
@@ -34,6 +40,12 @@ const Signup = ({ setIsAuthenticated }) => {
         <input {...email} />
         <label>Password:</label>
         <input {...password} />
+        <label>Address:</label>
+        <input {...address} />
+        <label>Phone number:</label>
+        <input {...phoneNumber} />
+        <label>Profile picture:</label>
+        <input {...profilePicture} />
         <button>Sign up</button>
       </form>
     </div>

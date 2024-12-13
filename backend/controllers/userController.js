@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const { isStrongPassword } = require("validator");
 
 // Generate JWT
 const generateToken = (_id) => {
@@ -17,6 +18,9 @@ const signupUser = async (req, res) => {
     name,
     email,
     password,
+    address,
+    phoneNumber,
+    profilePicture,
   } = req.body;
   try {
     if (
@@ -34,6 +38,19 @@ const signupUser = async (req, res) => {
       res.status(400);
       throw new Error("User already exists");
     }
+    const validpassword = isStrongPassword(password, {
+      minLength: 8,
+      minLowercase: 1,
+      minUppercase: 1,
+      minNumbers: 1,
+      minSymbols: 1,
+    });
+    if (!validpassword) {
+      res.status(400);
+      throw new Error(
+        "Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character"
+      );
+    }
 
     // Hash password
     const salt = await bcrypt.genSalt(10);
@@ -44,6 +61,9 @@ const signupUser = async (req, res) => {
       name,
       email,
       password: hashedPassword,
+      address,
+      phoneNumber,
+      profilePicture,
     });
 
     if (user) {
